@@ -1,7 +1,6 @@
 package urlshort
 
 import (
-	"bytes"
 	"gopkg.in/yaml.v3"
 	"log"
 	"net/http"
@@ -26,13 +25,7 @@ func MapHandler(pathsToUrls map[string]string, fallback http.Handler) http.Handl
 func YAMLHandler(yml []byte, fallback http.Handler) (http.HandlerFunc, error) {
 	data := make([]map[string]string, 0)
 
-	err := yaml.NewDecoder(bytes.NewReader(yml)).Decode(&data)
-	if err != nil {
-		log.Fatal(err)
-		return fallback.ServeHTTP, err
-	}
-
-	err = yaml.Unmarshal(yml, &data)
+	err := yaml.Unmarshal(yml, &data)
 	if err != nil {
 		log.Fatal(err)
 		return fallback.ServeHTTP, err
