@@ -29,13 +29,13 @@ func YAMLHandler(yml []byte, fallback http.Handler) (http.HandlerFunc, error) {
 	err := yaml.NewDecoder(bytes.NewReader(yml)).Decode(&data)
 	if err != nil {
 		log.Fatal(err)
-		return nil, err
+		return fallback.ServeHTTP, err
 	}
 
 	err = yaml.Unmarshal(yml, &data)
 	if err != nil {
 		log.Fatal(err)
-		return nil, err
+		return fallback.ServeHTTP, err
 	}
 
 	pathsToUrl := make(map[string]string)
