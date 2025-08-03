@@ -12,7 +12,7 @@ such a way to allow me to write the damn thing. There were several _Eureka!_
 moments indeed.
 
 ## To do
-- [ ] Update the main/main.go source file to accept a YAML file as a flag and then
+- [x] Update the main/main.go source file to accept a YAML file as a flag and then
 load the YAML from a file rather than from a string.
 - [ ] Build a JSONHandler that serves the same purpose, but reads from JSON data.
 - [ ] Build a Handler that doesn't read from a map but instead reads from a database.
