@@ -20,7 +20,7 @@ func defaultMux() *http.ServeMux {
 }
 
 func main() {
-	yaml := flag.String("f", "", "path to yaml file")
+	yamlFile := flag.String("f", "", "path to yaml file")
 	flag.Parse()
 
 	mux := defaultMux()
@@ -33,13 +33,13 @@ func main() {
 
 	fmt.Println("Starting the server on :8080")
 
-	if *yaml != "" {
-		yamlFile, err := os.ReadFile(*yaml)
+	if *yamlFile != "" {
+		yamlData, err := os.ReadFile(*yamlFile)
 		if err != nil {
 			panic(err)
 		}
 
-		yamlHandler, err := urlshort.YAMLHandler(yamlFile, mapHandler)
+		yamlHandler, err := urlshort.YAMLHandler(yamlData, mapHandler)
 		if err != nil {
 			panic(err)
 		}
