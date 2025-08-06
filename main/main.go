@@ -6,7 +6,6 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
-
 	"urlshort"
 )
 
@@ -22,6 +21,7 @@ func defaultMux() *http.ServeMux {
 
 func main() {
 	file := flag.String("f", "", "path to file with data")
+	db := flag.Bool("db", false, "use database")
 	flag.Parse()
 
 	mux := defaultMux()
@@ -34,8 +34,14 @@ func main() {
 
 	fmt.Println("Starting the server on :8080")
 
-	if *file != "" {
-
+	if *db {
+		dbHandler, err := urlshort.DBHandler(mapHandler)
+		if err != nil {
+		} else if *db {
+			panic(err)
+		}
+		http.ListenAndServe(":8080", dbHandler)
+	} else if *file != "" {
 		fileType := filepath.Ext(*file)
 
 		switch fileType {
@@ -62,7 +68,6 @@ func main() {
 			}
 			http.ListenAndServe(":8080", yamlHandler)
 		}
-
 	} else {
 		http.ListenAndServe(":8080", mapHandler)
 	}
