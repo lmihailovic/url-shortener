@@ -35,18 +35,17 @@ to `https://godoc.org/gopkg.in/yaml.v2`.
 ```
 2. Connect to MariaDB
 ```
-% docker exec -it mariadb mariadb -u root -p
+% docker exec -it mariadb mariadb -u root -proot
 ```
-3. Enter the password `root` when prompted
-4. Inside MariaDB shell, create the database
+3. Inside MariaDB shell, create the database
 ```
 MariaDB [(none)]> CREATE DATABASE urlshort;
 ```
-5. Connect to the database with
+4. Connect to the database with
 ```
 MariaDB [(none)]> USE urlshort;
 ```
-6. Create a table with paths and URLs they redirect to
+5. Create a table with paths and URLs they redirect to
 ```
 CREATE TABLE redirect (
     id INT NOT NULL AUTO_INCREMENT,
@@ -55,13 +54,13 @@ CREATE TABLE redirect (
     PRIMARY KEY (id)
 );
 ```
-7. Insert values into table
+6. Insert values into the table
 ```
 INSERT INTO redirect (path, url) VALUES
     ('/short', 'https://go.dev/'),
     ('/repo', 'https://github.com/lmihailovic/url-shortener');
 ```
-8. Test that data was inserted correctly
+7. Test if data was inserted correctly
 ```
 MariaDB [urlshort]> SELECT * FROM redirect;
 ```
